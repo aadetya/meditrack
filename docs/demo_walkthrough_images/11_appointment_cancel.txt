@@ -1,0 +1,16 @@
+Appointments
+1. Create confirmed
+2. Create pending
+3. Confirm
+4. Cancel
+5. Complete
+6. Reschedule
+7. List all
+8. List by doctor
+9. List by patient
+10. Suggest slots
+0. Back
+Choose: 4
+Appointment ID: APT-0004
+[NOTIFY] CANCELLED appointment APT-0004 (Doctor=DOC-0003, Patient=PAT-0001, Start=2030-01-15 12:30)
+Cancelled: APT-0004

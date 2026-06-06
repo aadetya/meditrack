@@ -1,0 +1,3 @@
+Passed: 100
+Failed: 0
+ALL TESTS PASSED

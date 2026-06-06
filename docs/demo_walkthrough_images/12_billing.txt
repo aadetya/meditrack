@@ -1,0 +1,7 @@
+Billing
+1. Generate bill for appointment
+2. List bills
+0. Back
+Choose: 1
+Appointment ID: APT-0003
+BillSummary{billId='BIL-0004', billType=SENIOR_DISCOUNT, appointmentId='APT-0003', base=650.0, discount=65.0, tax=105.3, total=690.3, generatedAt=2026-06-06T21:20:52.336440}

@@ -1,0 +1,17 @@
+Doctors
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search
+0. Back
+Choose: 1
+Specializations: [GENERAL_PHYSICIAN, DERMATOLOGIST, CARDIOLOGIST, ORTHOPEDIC, PEDIATRICIAN, ENT, NEUROLOGIST]
+Specialization: NEUROLOGIST
+Slot minutes (blank for default 30): 25
+Name: Nisha Kapoor
+Age: 39
+Phone: 9812345678
+Email: nisha@mt.in
+Consultation fee: 1100
+Created: Doctor{id='DOC-0004', name='Nisha Kapoor', specialization=NEUROLOGIST, fee=1100.0, slotMinutes=25}

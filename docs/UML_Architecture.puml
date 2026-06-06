@@ -1,0 +1,80 @@
+@startuml
+title MediTrack - Architecture Overview
+
+top to bottom direction
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+package "Entry Points" {
+  [Console Startup\nMain] as ConsoleStartup
+  [Swing Startup\nGuiMain] as SwingStartup
+  [Demo and Verification\nDemoDataSeeder\nTestRunner] as Tooling
+}
+
+package "Presentation Layer" {
+  [Console UI\nConsoleApp + Menus] as ConsoleUi
+  [Swing UI\nMediTrackFrame] as SwingUi
+}
+
+package "Application Layer" {
+  [Core Services\nDoctorService\nPatientService\nAppointmentService\nBillingService\nClinicManagementService] as ServiceLayer
+  [Observer Runtime\nConsoleNotificationObserver\nReminderSchedulerObserver] as NotificationRuntime
+  [Analytics and AI\nAnalyticsConsoleMenu\nAIHelper] as Intelligence
+}
+
+package "Persistence and Support" {
+  [PersistenceManager] as Persistence
+  [AutoSaveService] as AutoSave
+  [IdGenerator] as Ids
+  [CSV + Serialization] as CsvAndSer
+}
+
+package "Domain and Storage" {
+  [Domain Entities] as Domain
+  [DataStore<T>] as DataStore
+}
+
+ConsoleStartup --> ConsoleUi : open console flow
+ConsoleStartup --> ServiceLayer : wire services
+ConsoleStartup --> Persistence : load + final save
+ConsoleStartup --> AutoSave : start thread
+ConsoleStartup --> NotificationRuntime : register observers
+
+SwingStartup --> SwingUi : open Swing UI
+SwingUi --> ServiceLayer
+
+Tooling --> ServiceLayer : seed data + verify rules
+Tooling --> Persistence : save/load checks
+Tooling --> Intelligence : AI verification
+
+ConsoleUi --> ServiceLayer : CRUD + scheduling
+ConsoleUi --> Intelligence : AI assist + analytics
+ConsoleUi --> Persistence : save now
+
+ServiceLayer --> Domain : business rules
+ServiceLayer --> DataStore : shared stores
+ServiceLayer --> NotificationRuntime : appointment events
+ServiceLayer --> Ids : business IDs
+
+Persistence --> DataStore : snapshot + restore
+Persistence --> CsvAndSer : CSV + SER files
+Persistence --> Ids : reseed after load
+AutoSave --> Persistence : periodic save
+
+NotificationRuntime --> Domain : immutable snapshots
+Intelligence --> ServiceLayer : doctor + slot lookup
+
+legend right
+This file is the high-level map only.
+
+Use the companion UML files for class detail:
+- UML_Domain.puml
+- UML_Service_Collaboration.puml
+- UML_Persistence.puml
+endlegend
+
+@enduml

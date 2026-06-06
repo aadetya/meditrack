@@ -1,0 +1,3 @@
+[PASS] completed appointment cannot be cancelled
+[PASS] pending appointment cannot be completed directly
+[PASS] duplicate cancellation rejected

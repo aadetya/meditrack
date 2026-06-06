@@ -1,0 +1,24 @@
+=== MediTrack Demo Data Seeder ===
+Seeded deterministic demo data into: /Users/aadetya/meditrack-project/data
+Demo base time: 2030-01-15T10:00
+Counts: doctors=3, patients=3, appointments=5, bills=3
+Doctors:
+- DOC-0001 -> Dr Meera Sharma
+- DOC-0002 -> Dr Aarav Singh
+- DOC-0003 -> Dr Kavya Iyer
+Patients:
+- PAT-0001 -> Rohan Patel
+- PAT-0002 -> Ananya Rao
+- PAT-0003 -> Vikram Menon
+Key appointments:
+- standard billing -> APT-0001
+- insured billing -> APT-0002
+- cancelled -> APT-0005
+Generated bills:
+- standard -> BIL-0001
+- insured -> BIL-0002
+- senior -> BIL-0003
+
+Next steps:
+mvn -q exec:java -Dexec.mainClass=com.airtribe.meditrack.Main -Dexec.args="--loadData"
+mvn -q exec:java -Dexec.mainClass=com.airtribe.meditrack.test.TestRunner
