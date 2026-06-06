@@ -1,0 +1,18 @@
+Loaded persisted data from /Users/aadetya/meditrack-project/data
+Counts: doctors=3, patients=3, appointments=5, bills=3, total=14
+- Doctors: source=SER, count=3, warnings=0
+- Patients: source=SER, count=3, warnings=0
+- Appointments: source=SER, count=5, warnings=0
+- Bills: source=SER, count=3, warnings=0
+
+MediTrack - Main Menu
+1. Doctors
+2. Patients
+3. Appointments
+4. Billing
+5. AI Assist
+6. Analytics
+7. Save Now
+0. Exit
+Choose: 
+Input closed. Exiting.

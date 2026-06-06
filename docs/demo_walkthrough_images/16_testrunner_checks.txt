@@ -1,0 +1,5 @@
+[PASS] pending appointment cannot be completed directly
+[PASS] safe doctor delete blocked by active appointment
+[PASS] bill count preserved
+[PASS] autosave bills csv
+[PASS] ai inferred specialization

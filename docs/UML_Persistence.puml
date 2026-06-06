@@ -1,0 +1,93 @@
+@startuml
+title MediTrack - Persistence and Runtime Support
+
+left to right direction
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Shared Stores" {
+  class "DataStore<T extends MedicalEntity>" as DataStore <<generic>> {
+    + upsert(item)
+    + getById(id)
+    + getAll()
+    + clear()
+    + size()
+  }
+
+  class IdGenerator <<singleton>> {
+    + nextId(prefix)
+    + seedFromExistingIds(ids)
+  }
+}
+
+package "Persistence Coordinator" {
+  class PersistenceManager {
+    + saveAll(...)
+    + loadAll(...)
+    + loadAllWithReport(...)
+  }
+
+  class PersistenceReport {
+    - entityName : String
+    - source : Source
+    - count : int
+    - warnings : List<String>
+  }
+
+  abstract class "CSVUtil<T>" as CSVUtil <<template>> {
+    + write(path, items)
+    + read(path)
+    # header()
+    # toRow(item)
+    # fromColumns(cols)
+  }
+
+  class DoctorCSV
+  class PatientCSV
+  class AppointmentCSV
+  class BillCSV
+  class SerializationUtil
+}
+
+package "Runtime Support" {
+  class AutoSaveService <<thread>> {
+    + requestStop()
+    + run()
+  }
+
+  class Constants
+}
+
+DoctorCSV --|> CSVUtil
+PatientCSV --|> CSVUtil
+AppointmentCSV --|> CSVUtil
+BillCSV --|> CSVUtil
+
+PersistenceManager --> DataStore : stores snapshot state
+PersistenceManager --> DoctorCSV
+PersistenceManager --> PatientCSV
+PersistenceManager --> AppointmentCSV
+PersistenceManager --> BillCSV
+PersistenceManager --> SerializationUtil
+PersistenceManager --> PersistenceReport : emits load summary
+PersistenceManager --> IdGenerator : reseeds after load
+PersistenceManager --> Constants : file names + paths
+
+AutoSaveService --> PersistenceManager : periodic saveAll(...)
+AutoSaveService --> DataStore : doctors/patients/\nappointments/bills
+
+note right of PersistenceManager
+Load prefers serialized stores, falls back to CSV,
+and records the chosen source plus warnings in
+PersistenceReport.
+end note
+
+note right of AutoSaveService
+Autosave writes the same entity families as
+manual save, including bills.
+end note
+
+@enduml

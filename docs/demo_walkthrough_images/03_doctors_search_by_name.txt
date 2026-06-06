@@ -1,0 +1,10 @@
+Doctors
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search
+0. Back
+Choose: 5
+Search query (name/spec/id): Meera
+Doctor{id='DOC-0001', name='Dr Meera Sharma', specialization=GENERAL_PHYSICIAN, fee=650.0, slotMinutes=30}

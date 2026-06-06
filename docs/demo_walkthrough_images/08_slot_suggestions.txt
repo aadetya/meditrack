@@ -1,0 +1,20 @@
+Appointments
+1. Create confirmed
+2. Create pending
+3. Confirm
+4. Cancel
+5. Complete
+6. Reschedule
+7. List all
+8. List by doctor
+9. List by patient
+10. Suggest slots
+0. Back
+Choose: 10
+Doctor ID: DOC-0001
+From (yyyy-MM-dd HH:mm) (blank for now): 2030-01-15 10:00
+Available: 2030-01-15 10:30
+Available: 2030-01-15 11:00
+Available: 2030-01-15 12:00
+Available: 2030-01-15 12:30
+Available: 2030-01-15 13:00

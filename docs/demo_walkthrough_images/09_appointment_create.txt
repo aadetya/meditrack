@@ -1,0 +1,20 @@
+Appointments
+1. Create confirmed
+2. Create pending
+3. Confirm
+4. Cancel
+5. Complete
+6. Reschedule
+7. List all
+8. List by doctor
+9. List by patient
+10. Suggest slots
+0. Back
+Choose: 1
+Doctor ID: DOC-0003
+Duration minutes (blank for doctor slot 25): 
+Patient ID: PAT-0001
+Start (yyyy-MM-dd HH:mm): 2030-01-15 15:00
+Symptoms (comma-separated, optional): ear
+[NOTIFY] CREATED appointment APT-0006 (Doctor=DOC-0003, Patient=PAT-0001, Start=2030-01-15 15:00)
+Created: Appointment{id='APT-0006', patientId='PAT-0001', doctorId='DOC-0003', startTime=2030-01-15T15:00, durationMinutes=25, status=CONFIRMED, symptoms=[ear]}
