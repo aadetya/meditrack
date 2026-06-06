@@ -1,0 +1,11 @@
+AI Assist
+Symptoms (comma-separated): rash
+Desired start (yyyy-MM-dd HH:mm) (blank for now): 2030-01-15 11:00
+Recommended doctors:
+- Doctor{id='DOC-0002', name='Dr Aarav Singh', specialization=DERMATOLOGIST, fee=900.0, slotMinutes=20}
+  * 2030-01-15 11:20
+  * 2030-01-15 11:40
+  * 2030-01-15 12:00
+  * 2030-01-15 12:20
+  * 2030-01-15 12:40
+

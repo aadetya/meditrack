@@ -1,0 +1,25 @@
+MediTrack - Main Menu
+1. Doctors
+2. Patients
+3. Appointments
+4. Billing
+5. AI Assist
+6. Analytics
+7. Save Now
+0. Exit
+Choose: 6
+
+Analytics
+Average doctor fee: 800.0
+Appointments per doctor:
+- DOC-0002: 2
+- DOC-0001: 2
+- DOC-0003: 1
+Busiest doctor: DOC-0002 (2 appointments)
+Appointments by status:
+- CANCELLED: 1
+- CONFIRMED: 3
+- PENDING: 1
+Doctors by specialization:
+- DERMATOLOGIST: 1
+- GENERAL_PHYSICIAN: 1

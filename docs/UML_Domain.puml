@@ -1,0 +1,135 @@
+@startuml
+title MediTrack - Domain Model
+
+top to bottom direction
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Identity Base" {
+  abstract class MedicalEntity {
+    - id : String
+    - createdAt : LocalDateTime
+    - updatedAt : LocalDateTime
+    + getId()
+    + getCreatedAt()
+    + getUpdatedAt()
+  }
+
+  abstract class Person {
+    - name : String
+    - age : int
+    - phone : String
+    - email : String
+  }
+}
+
+package "Clinical Entities" {
+  class Doctor {
+    - specialization : Specialization
+    - consultationFee : double
+    - slotMinutes : int
+  }
+
+  class Patient {
+    - insured : boolean
+    - insuranceCoveragePercent : double
+    - address : Address
+    - allergies : List<String>
+    + getAddress()
+    + clone()
+  }
+
+  class Address <<immutable>> {
+    - line1 : String
+    - city : String
+    - state : String
+    - zip : String
+    + copyOf(address)
+  }
+
+  class Appointment {
+    - patientId : String
+    - doctorId : String
+    - startTime : LocalDateTime
+    - durationMinutes : int
+    - status : AppointmentStatus
+    - symptoms : List<String>
+    + getEndTime()
+    + isActive()
+    + confirm()
+    + cancel()
+    + complete()
+    + reschedule(...)
+  }
+}
+
+package "Billing Entities" {
+  class Bill {
+    - type : BillType
+    - appointmentId : String
+    - patientId : String
+    - doctorId : String
+    - totalAmount : double
+    - paid : boolean
+    - paidAt : LocalDateTime
+    + pay()
+    + toSummary()
+  }
+
+  class BillSummary <<immutable, serializable>> {
+    - billId : String
+    - billType : BillType
+    - appointmentId : String
+    - totalAmount : double
+    - generatedAt : LocalDateTime
+  }
+}
+
+package "Contracts and Enums" {
+  interface Payable {
+    + pay()
+    + computeTax(amount, taxRate)
+  }
+
+  enum Specialization
+  enum AppointmentStatus
+  enum BillType
+}
+
+MedicalEntity <|-- Person
+Person <|-- Doctor
+Person <|-- Patient
+MedicalEntity <|-- Appointment
+MedicalEntity <|-- Bill
+
+Patient *-- Address
+Doctor --> Specialization
+Appointment --> AppointmentStatus
+Bill --> BillType
+Bill ..|> Payable
+Bill ..> BillSummary : creates
+Appointment ..> Doctor : doctorId reference
+Appointment ..> Patient : patientId reference
+Bill ..> Appointment : appointmentId reference
+
+note right of Address
+Address is immutable and copied on write,
+so callers cannot mutate patient state
+through nested references.
+end note
+
+note right of Appointment
+Appointment owns its lifecycle transitions.
+Status changes are validated through explicit
+domain methods instead of free-form mutation.
+end note
+
+note right of BillSummary
+BillSummary is a stable reporting snapshot
+separate from the mutable Bill lifecycle.
+end note
+
+@enduml

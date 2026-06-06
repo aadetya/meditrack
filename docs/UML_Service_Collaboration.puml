@@ -1,0 +1,140 @@
+@startuml
+title MediTrack - Service Collaboration
+
+top to bottom direction
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Core Services" {
+  class DoctorService {
+    + createDoctor(...)
+    + updateDoctor(...)
+    + deleteDoctor(id)
+    + search(query)
+    + searchBySpecialization(...)
+  }
+
+  class PatientService {
+    + createPatient(...)
+    + updatePatient(...)
+    + deletePatient(id)
+    + searchPatient(id)
+    + searchPatient(name, partialMatch)
+    + searchPatient(age)
+  }
+
+  class AppointmentService {
+    + createAppointment(...)
+    + createPendingAppointment(...)
+    + confirmAppointment(id)
+    + cancelAppointment(id)
+    + completeAppointment(id)
+    + rescheduleAppointment(...)
+    + suggestNextSlots(...)
+  }
+
+  class BillingService {
+    + generateBill(appointmentId)
+    + generateBillSummary(appointmentId)
+    + listBills()
+  }
+
+  class ClinicManagementService {
+    + deleteDoctorSafely(id)
+    + deletePatientSafely(id)
+  }
+}
+
+package "Patterns" {
+  interface "Searchable<T>" as Searchable {
+    + search(query)
+    + normalize(s)
+  }
+
+  abstract class BillingStrategy {
+    + generateBill(...)
+  }
+
+  class StandardBillingStrategy
+  class InsuranceBillingStrategy
+  class SeniorDiscountBillingStrategy
+  class BillingStrategyFactory <<factory>>
+  class BillFactory <<factory>>
+}
+
+package "Notifications" {
+  interface AppointmentObserver {
+    + onEvent(event)
+  }
+
+  class AppointmentEvent {
+    - appointment : AppointmentSnapshot
+    - type : AppointmentEventType
+    - timestamp : LocalDateTime
+  }
+
+  class AppointmentSnapshot <<immutable>>
+  enum AppointmentEventType
+  class ConsoleNotificationObserver
+  class ReminderSchedulerObserver <<timer>>
+}
+
+class "DataStore<T extends MedicalEntity>" as DataStore <<generic>> {
+  + upsert(item)
+  + getById(id)
+  + getAll()
+  + find(predicate)
+}
+
+DoctorService ..|> Searchable
+DoctorService --> DataStore : Doctor store
+PatientService --> DataStore : Patient store
+AppointmentService --> DataStore : Appointment store
+BillingService --> DataStore : Bill store
+
+AppointmentService --> DoctorService : validates doctor
+AppointmentService --> PatientService : validates patient
+BillingService --> AppointmentService : resolves appointment
+BillingService --> DoctorService : resolves doctor
+BillingService --> PatientService : resolves patient
+ClinicManagementService --> DoctorService : delegates delete
+ClinicManagementService --> PatientService : delegates delete
+ClinicManagementService --> AppointmentService : checks active references
+
+BillingService --> BillingStrategyFactory
+BillingStrategyFactory --> BillingStrategy : selects
+BillingStrategy <|-- StandardBillingStrategy
+BillingStrategy <|-- InsuranceBillingStrategy
+BillingStrategy <|-- SeniorDiscountBillingStrategy
+StandardBillingStrategy --> BillFactory
+InsuranceBillingStrategy --> BillFactory
+SeniorDiscountBillingStrategy --> BillFactory
+
+AppointmentService --> AppointmentObserver : publishes
+AppointmentObserver <|.. ConsoleNotificationObserver
+AppointmentObserver <|.. ReminderSchedulerObserver
+AppointmentEvent --> AppointmentSnapshot
+AppointmentEvent --> AppointmentEventType
+ReminderSchedulerObserver --> AppointmentEvent : reacts to
+
+note right of AppointmentService
+One service owns create, confirm, cancel,
+complete, reschedule, availability checks,
+and slot suggestions.
+end note
+
+note right of PatientService
+The overloaded searchPatient(...) methods
+show compile-time polymorphism with explicit
+query intent.
+end note
+
+note right of ReminderSchedulerObserver
+Observers keep reminders and console side effects
+outside the scheduling core.
+end note
+
+@enduml

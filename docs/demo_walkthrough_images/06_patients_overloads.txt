@@ -1,0 +1,38 @@
+Patients
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search (ID)
+6. Search (Name)
+7. Search (Age)
+0. Back
+Choose: 5
+Patient ID: PAT-0002
+Patient{id='PAT-0002', name='Ananya Rao', age=34, insured=true, coverage=80.0, address='44 Park Street, Kolkata, West Bengal 700016', allergies=[peanuts]}
+
+Patients
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search (ID)
+6. Search (Name)
+7. Search (Age)
+0. Back
+Choose: 6
+Name: Ananya
+Patient{id='PAT-0002', name='Ananya Rao', age=34, insured=true, coverage=80.0, address='44 Park Street, Kolkata, West Bengal 700016', allergies=[peanuts]}
+
+Patients
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search (ID)
+6. Search (Name)
+7. Search (Age)
+0. Back
+Choose: 7
+Age: 67
+Patient{id='PAT-0003', name='Vikram Menon', age=67, insured=false, coverage=0.0, address='7 Beach Road, Chennai, Tamil Nadu 600001', allergies=[pollen]}

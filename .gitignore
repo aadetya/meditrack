@@ -1,0 +1,17 @@
+target/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.log
+.DS_Store
+
+# Runtime data (keep directory, ignore generated files)
+data/*.csv
+data/*.ser
+data/test-*/
+
+# Generated submission artifacts
+docs/images/

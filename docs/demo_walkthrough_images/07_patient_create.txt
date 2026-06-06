@@ -1,0 +1,22 @@
+Patients
+1. Add
+2. Update
+3. Delete
+4. List
+5. Search (ID)
+6. Search (Name)
+7. Search (Age)
+0. Back
+Choose: 1
+Insured (y/n): y
+Insurance coverage percent (0-100): 75
+Name: Sneha Joshi
+Age: 31
+Phone: 9823456781
+Email: sneha@mt.in
+Address line1: 12 Lake Rd
+City: Pune
+State: MH
+ZIP: 411001
+Allergies (comma-separated, optional): dust
+Created: Patient{id='PAT-0004', name='Sneha Joshi', age=31, insured=true, coverage=75.0, address='12 Lake Rd, Pune, MH 411001', allergies=[dust]}

@@ -1,0 +1,26 @@
+[PASS] csv fallback loads appointments
+[PASS] csv fallback report source
+[PASS] empty allergies preserved
+[PASS] empty symptoms preserved
+[PASS] corrupted patient ser falls back to csv
+[PASS] corrupted ser fallback warning reported
+[PASS] observer event order
+[PASS] observer snapshot immutable
+[PASS] self removing observer handled once
+[PASS] reminder scheduled
+[REMINDER] Appointment APT-0013 starts at 2026-06-06 21:21 (Doctor=DOC-0012, Patient=PAT-0013)
+[PASS] reminder scheduled count decreases after firing
+[PASS] autosave doctors csv
+[PASS] autosave patients csv
+[PASS] autosave appointments csv
+[PASS] autosave bills csv
+[PASS] average fee calculation
+[PASS] appointments grouping count
+[PASS] ai inferred specialization
+[PASS] ai recommendations non-empty
+[PASS] ai dermatology recommendation first
+[PASS] ai slot suggestions non-empty
+
+Passed: 100
+Failed: 0
+ALL TESTS PASSED

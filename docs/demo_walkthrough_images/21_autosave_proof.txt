@@ -1,0 +1,4 @@
+[PASS] autosave doctors csv
+[PASS] autosave patients csv
+[PASS] autosave appointments csv
+[PASS] autosave bills csv
